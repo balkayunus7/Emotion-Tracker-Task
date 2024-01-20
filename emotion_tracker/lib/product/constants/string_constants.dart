@@ -20,9 +20,12 @@ class StringConstants {
   static const String disgust = "Disgust";
   static const String embarrassment = "Embarrassment";
   static const String fear = "Fear";
-  static const String guilt = "Guilt";
+  static const String quilt = "Quilt";
   static const String offense = "Offense";
   static const String sadness = "Sadness";
+
+  // Show feelings
+  static const String showHistory = "Show History";
 }
 
 
