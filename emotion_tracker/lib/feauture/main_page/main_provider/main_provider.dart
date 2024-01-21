@@ -1,42 +1,28 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MainNotifier extends StateNotifier<MainState> {
   MainNotifier() : super(const MainState());
 
-  void changeHistoryState() {
-    state = MainState(isShowHistory: !state.isShowHistory);
-  }
-
-  static const String selectedScreenKey = 'selectedScreen';
-  static const String selectedTimeKey = 'selectedTime';
-
-  Future<void> saveSelectedScreen(String screenName, DateTime time) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString(selectedScreenKey, screenName);
-    prefs.setString(selectedTimeKey, time.toIso8601String());
-  }
-
-  Future<String?> getSelectedScreen() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(selectedScreenKey);
-  }
-
-  Future<DateTime?> getSelectedTime() async {
-    final prefs = await SharedPreferences.getInstance();
-    final isoString = prefs.getString(selectedTimeKey);
-    return isoString != null ? DateTime.parse(isoString) : null;
-  }
+  static const String selectedEmotionsKey = 'selectedEmotions';
 }
 
 class MainState extends Equatable {
   const MainState({
-    this.isShowHistory = false,
+    this.isSelected,
   });
 
-  final bool isShowHistory;
+  final bool? isSelected;
 
   @override
-  List<Object?> get props => [isShowHistory];
+  List<Object?> get props => [isSelected];
+
+  MainState copyWith({
+    bool? isSelected,
+  }) {
+    return MainState(
+      isSelected: isSelected ?? this.isSelected,
+    );
+  }
 }

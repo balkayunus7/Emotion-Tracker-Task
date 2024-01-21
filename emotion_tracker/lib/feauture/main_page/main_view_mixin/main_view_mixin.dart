@@ -1,26 +1,18 @@
 import 'package:animated_emoji/animated_emoji.dart';
 import 'package:emotion_tracker/product/constants/color_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kartal/kartal.dart';
 import '../../../product/constants/string_constants.dart';
+import '../../history_page/history_page.dart';
+import '../main_page.dart';
 
-class EmotionData {
-  final String emotion;
-  final AnimatedEmoji animatedEmoji;
-  final bool isPositive;
-  final Color color;
-  static const double emojiSize = 40;
+mixin MainViewMixin on ConsumerState<MainPage> {
+  // route to History Page
+  void routeHistoryPage(BuildContext context) {
+    context.route.navigateToPage(const HistoryPage());
+  }
 
-  EmotionData(
-    this.emotion,
-    this.animatedEmoji,
-    this.isPositive,
-  ) // Varsayılan değeri burada belirleyin
-  : color = isPositive
-            ? ColorConstants.negativeEmotionsColor
-            : ColorConstants.positiveEmotionsColor;
-}
-
-class MainViewMixin {
   // Positive feelings list with animated emoji and color
   final List<EmotionData> emotions = [
     EmotionData(
@@ -158,4 +150,20 @@ class MainViewMixin {
       true,
     ),
   ];
+}
+// EmotionData class
+class EmotionData {
+  final String emotion;
+  final AnimatedEmoji animatedEmoji;
+  final bool isPositive;
+  final Color color;
+  static const double emojiSize = 40;
+
+  EmotionData(
+    this.emotion,
+    this.animatedEmoji,
+    this.isPositive,
+  ) : color = isPositive
+            ? ColorConstants.negativeEmotionsColor
+            : ColorConstants.positiveEmotionsColor;
 }

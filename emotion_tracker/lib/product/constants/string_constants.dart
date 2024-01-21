@@ -26,6 +26,8 @@ class StringConstants {
 
   // Show feelings
   static const String showHistory = "Show History";
+  static const String historyTitle = "History";
+  static const String error = "error";
 }
 
 

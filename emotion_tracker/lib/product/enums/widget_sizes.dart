@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 enum WidgetSize {
   gridViewSpacing(25),
   fontSizeButton(11),
+  fontSizeHistory(14),
   fontSizeShow(17),
   fontSizeTitle(23),
   gridViewCount(3);
+
   final double value;
 
   // ignore: sort_constructors_first
