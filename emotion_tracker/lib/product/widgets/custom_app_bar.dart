@@ -21,9 +21,9 @@ class CustomAppBar extends PreferredSize {
       centerTitle: true,
       title: TitleText(
         title: title,
-        color: ColorConstants.primaryDark,
+        color: ColorConstants.primaryWhite,
       ),
-      backgroundColor: Colors.transparent,
+      backgroundColor: ColorConstants.primaryDark,
     );
   }
 }

@@ -18,7 +18,7 @@ class ShowButton extends StatelessWidget {
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateColor.resolveWith(
-            (states) => ColorConstants.primaryGreen,
+            (states) => ColorConstants.negativeEmotionsColor,
           ),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(

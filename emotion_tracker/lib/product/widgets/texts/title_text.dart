@@ -10,13 +10,41 @@ class TitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      title,
-      textAlign: TextAlign.start,
-      style: GoogleFonts.signikaNegative(
-        color: color,
-        fontSize: WidgetSize.fontSizeTitle.value,
-        fontWeight: FontWeight.bold,
+    return RichText(
+      textAlign: TextAlign.end,
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: title,
+            style: GoogleFonts.signikaNegative(
+              color: color,
+              fontSize: WidgetSize.fontSizeTitle.value,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SubtitleText extends StatelessWidget {
+  const SubtitleText({required this.title, required this.color, super.key});
+
+  final String title;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        text: ' "$title"',
+        style: GoogleFonts.signikaNegative(
+          color: color,
+          fontSize: WidgetSize.fontSizeSubtitle.value,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }

@@ -1,5 +1,5 @@
 class StringConstants {
-  static const String appName = "Emotion Tracker";
+  static const String appName = "EMOTION TRACKER";
   static const String mainTitle = "How do you feeling today?";
 
   // Positive feelings 
@@ -28,6 +28,10 @@ class StringConstants {
   static const String showHistory = "Show History";
   static const String historyTitle = "History";
   static const String error = "error";
+  static const String quotes = "Quotes";
+  static const String backgroundImage= 'assets/backgroundImage.png';
+
+  static const String waitMessage = 'You can only add one emotion every 5 minutes';
 }
 
 

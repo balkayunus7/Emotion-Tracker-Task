@@ -46,7 +46,7 @@ class QuoteElement {
   final int? downvotesCount;
   final String? author;
   final String? authorPermalink;
-  final String? body;
+  late final String? body;
 
   factory QuoteElement.fromJson(Map<String, dynamic> json) {
     return QuoteElement(

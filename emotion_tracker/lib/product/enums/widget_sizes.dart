@@ -4,9 +4,14 @@ enum WidgetSize {
   gridViewSpacing(25),
   fontSizeButton(11),
   fontSizeHistory(14),
+  fontSizeSubtitle(20),
   fontSizeShow(17),
   fontSizeTitle(23),
-  gridViewCount(3);
+  gridViewCount(3),
+  crossAxisSpacing(15),
+  childAspectRatio(1.4),
+  mainAxisSpacing(27),
+  crossAxisCount(3);
 
   final double value;
 

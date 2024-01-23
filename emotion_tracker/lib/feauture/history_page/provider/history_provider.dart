@@ -17,6 +17,7 @@ class HistoryProvider extends StateNotifier<HistoryState> {
     if (DateTime.now()
             .difference(DateTime.fromMillisecondsSinceEpoch(lastTimestamp)) >=
         const Duration(minutes: 5)) {
+      state = state.copyWith(isSelected: false);
       // Update the timestamp
       await prefs.setInt(
           'lastEmotionTimestamp', DateTime.now().millisecondsSinceEpoch);
@@ -26,6 +27,8 @@ class HistoryProvider extends StateNotifier<HistoryState> {
       String historyItem = '$emotion - ${selectedTime.toIso8601String()}';
       historyList.add(historyItem);
       prefs.setStringList(selectedEmotionsKey, historyList);
+    } else {
+      state = state.copyWith(isSelected: true);
     }
   }
 
@@ -38,7 +41,7 @@ class HistoryProvider extends StateNotifier<HistoryState> {
 
 class HistoryState extends Equatable {
   const HistoryState({
-    this.isSelected,
+    this.isSelected = false,
   });
 
   final bool? isSelected;

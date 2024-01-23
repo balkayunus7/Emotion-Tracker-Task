@@ -13,6 +13,11 @@ mixin MainViewMixin on ConsumerState<MainPage> {
     context.route.navigateToPage(const HistoryPage());
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   // Positive feelings list with animated emoji and color
   final List<EmotionData> emotions = [
     EmotionData(
@@ -151,6 +156,7 @@ mixin MainViewMixin on ConsumerState<MainPage> {
     ),
   ];
 }
+
 // EmotionData class
 class EmotionData {
   final String emotion;

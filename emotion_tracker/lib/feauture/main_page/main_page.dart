@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:emotion_tracker/feauture/history_page/history_page.dart';
 import 'package:emotion_tracker/feauture/main_page/main_view_mixin/main_view_mixin.dart';
 import 'package:emotion_tracker/product/constants/color_constants.dart';
@@ -36,12 +37,14 @@ class _MainPageState extends ConsumerState<MainPage> with MainViewMixin {
               padding: context.padding.horizontalNormal,
               child: const TitleText(
                   title: StringConstants.mainTitle,
-                  color: ColorConstants.textTitleColor),
+                  color: ColorConstants.primaryWhite),
             ),
             Expanded(
               child: Padding(
                   padding: context.padding.normal,
-                  child: _GridViewHome(emotions: emotions)),
+                  child: _GridViewHome(
+                    emotions: emotions,
+                  )),
             ),
             Padding(
               padding: context.padding.onlyBottomNormal,
@@ -54,31 +57,56 @@ class _MainPageState extends ConsumerState<MainPage> with MainViewMixin {
   }
 }
 
-class _GridViewHome extends ConsumerWidget {
-  const _GridViewHome({
-    required this.emotions,
-  });
-
+class _GridViewHome extends ConsumerStatefulWidget {
+  const _GridViewHome({required this.emotions});
   final List<EmotionData> emotions;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => __GridViewHomeState();
+}
+
+class __GridViewHomeState extends ConsumerState<_GridViewHome> {
+  bool isCooldown = false;
+
+  void changeCooldown() {
+    setState(() {
+      isCooldown = !isCooldown;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: 15,
-          childAspectRatio: 1.4,
-          mainAxisSpacing: 27,
-          crossAxisCount: 3),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: WidgetSize.crossAxisSpacing.value,
+          childAspectRatio: WidgetSize.childAspectRatio.value,
+          mainAxisSpacing: WidgetSize.mainAxisSpacing.value,
+          crossAxisCount: WidgetSize.crossAxisCount.value.toInt()),
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
-            context.route
-                .navigateToPage(QuatePage(
-                  emotion: emotions[index].emotion,
-                ))
-                .then((value) => ref
-                  ..read(historyProvider.notifier).addEmotionHistory(
-                      emotions[index].emotion, DateTime.now()));
+            if (!isCooldown) {
+              showDialog(
+                  context: context,
+                  builder: (context) => const AlertDialog(
+                        content: Text(StringConstants.waitMessage),
+                      ));
+              setState(() {
+                changeCooldown();
+              });
+              Timer(const Duration(minutes: 5), () {
+                setState(() {
+                  changeCooldown();
+                });
+              });
+              context.route
+                  .navigateToPage(QuatePage(
+                    emotion: widget.emotions[index].emotion,
+                  ))
+                  .then((value) => ref
+                    ..read(historyProvider.notifier).addEmotionHistory(
+                        widget.emotions[index].emotion, DateTime.now()));
+            }
           },
           child: Container(
             decoration: BoxDecoration(
@@ -86,27 +114,27 @@ class _GridViewHome extends ConsumerWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      emotions[index].color.withOpacity(0.3),
-                      emotions[index].color.withOpacity(1),
+                      widget.emotions[index].color.withOpacity(0.3),
+                      widget.emotions[index].color.withOpacity(1),
                     ]),
-                color: emotions[index].color,
+                color: widget.emotions[index].color,
                 borderRadius: WidgetSizeConstants.borderRadiusNormal),
             child: Column(
               children: [
                 Padding(
                   padding: context.padding.low,
-                  child: emotions[index].animatedEmoji,
+                  child: widget.emotions[index].animatedEmoji,
                 ),
                 ButtonText(
-                  emotions[index].emotion,
-                  text: emotions[index].emotion,
+                  widget.emotions[index].emotion,
+                  text: widget.emotions[index].emotion,
                 ),
               ],
             ),
           ),
         );
       },
-      itemCount: emotions.length,
+      itemCount: widget.emotions.length,
     );
   }
 }

@@ -9,5 +9,4 @@ class ColorConstants {
   static const Color positiveEmotionsColor = Colors.lightBlueAccent;
   static const Color negativeEmotionsColor = Colors.redAccent;
   static const Color primaryWhite = Colors.white;
-  static const Color primaryGreen = Colors.green;
 }

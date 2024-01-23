@@ -59,7 +59,7 @@ class _HistoryPageState extends ConsumerState<HistoryPage> with HistoryMixin {
                       ),
                       trailing: HistoryText(
                         text: timeString,
-                        textColor: ColorConstants.primaryDark,
+                        textColor: ColorConstants.primaryWhite,
                       ));
                 } else {
                   return const CircularProgressIndicator();
