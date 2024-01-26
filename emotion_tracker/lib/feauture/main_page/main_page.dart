@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:emotion_tracker/feauture/history_page/history_page.dart';
 import 'package:emotion_tracker/feauture/main_page/main_view_mixin/main_view_mixin.dart';
 import 'package:emotion_tracker/product/constants/color_constants.dart';
@@ -94,6 +95,7 @@ class __GridViewHomeState extends ConsumerState<_GridViewHome> {
               setState(() {
                 changeCooldown();
               });
+              // Wait to tap gridview 5 minutes
               Timer(const Duration(minutes: 5), () {
                 setState(() {
                   changeCooldown();
@@ -105,7 +107,8 @@ class __GridViewHomeState extends ConsumerState<_GridViewHome> {
                   ))
                   .then((value) => ref
                     ..read(historyProvider.notifier).addEmotionHistory(
-                        widget.emotions[index].emotion, DateTime.now()));
+                        widget.emotions[index].emotion, DateTime.now()))
+                  .then((value) => timerNotifiction());
             }
           },
           child: Container(
@@ -136,5 +139,38 @@ class __GridViewHomeState extends ConsumerState<_GridViewHome> {
       },
       itemCount: widget.emotions.length,
     );
+  }
+
+  Timer timerNotifiction() {
+    return Timer.periodic(const Duration(minutes: 5), (timer) {
+      List<NotificationActionButton> actionButtons = [];
+      for (int index = 0; index < widget.emotions.length; index++) {
+        actionButtons.add(
+          NotificationActionButton(
+            key: widget.emotions[index].emotion,
+            label: widget.emotions[index].emotion,
+            enabled: true,
+            icon: StringConstants.notificationIcon,
+          ),
+        );
+      }
+      AwesomeNotifications()
+          .createNotification(
+            content: NotificationContent(
+              color: ColorConstants.negativeEmotionsColor,
+              id: 10,
+              channelKey: StringConstants.notificationChannelName,
+              body: StringConstants.notificationBody,
+              title: StringConstants.notificationTitle,
+            ),
+            actionButtons: actionButtons,
+          )
+          .then((value) => AwesomeNotifications().setListeners(
+                  onActionReceivedMethod: (receivedNotification) {
+                return context.route.navigateToPage(QuatePage(
+                  emotion: receivedNotification.buttonKeyPressed,
+                ));
+              }));
+    });
   }
 }

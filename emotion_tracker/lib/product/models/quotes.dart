@@ -3,6 +3,8 @@ class Quote {
     required this.page,
     required this.lastPage,
     required this.quotes,
+    required quote,
+    String? author,
   });
 
   final int? page;
@@ -17,6 +19,7 @@ class Quote {
           ? []
           : List<QuoteElement>.from(
               json["quotes"]!.map((x) => QuoteElement.fromJson(x))),
+      quote: null,
     );
   }
 }

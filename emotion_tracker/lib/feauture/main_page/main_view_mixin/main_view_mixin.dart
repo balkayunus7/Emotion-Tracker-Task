@@ -1,4 +1,5 @@
 import 'package:animated_emoji/animated_emoji.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:emotion_tracker/product/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +12,25 @@ mixin MainViewMixin on ConsumerState<MainPage> {
   // route to History Page
   void routeHistoryPage(BuildContext context) {
     context.route.navigateToPage(const HistoryPage());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    AwesomeNotifications().initialize(
+      null,
+      [
+        NotificationChannel(
+          channelKey: 'basic_channel',
+          channelName: 'Basic Notifications',
+          channelDescription: 'Temel Bildirimler',
+          defaultColor: const Color(0xFF9D50DD),
+          ledColor: Colors.white,
+          playSound: true,
+          enableVibration: true,
+        ),
+      ],
+    );
   }
 
   @override

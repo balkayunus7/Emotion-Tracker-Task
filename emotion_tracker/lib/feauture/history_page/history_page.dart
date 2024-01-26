@@ -1,6 +1,7 @@
 import 'package:emotion_tracker/feauture/history_page/provider/history_provider.dart';
 import 'package:emotion_tracker/product/constants/color_constants.dart';
 import 'package:emotion_tracker/product/constants/string_constants.dart';
+import 'package:emotion_tracker/product/enums/widget_sizes.dart';
 import 'package:emotion_tracker/product/widgets/custom_app_bar.dart';
 import 'package:emotion_tracker/product/widgets/texts/button_text.dart';
 import 'package:flutter/material.dart';
@@ -52,15 +53,23 @@ class _HistoryPageState extends ConsumerState<HistoryPage> with HistoryMixin {
                   String emotion = emotionInfoParts[0];
                   String timeString = emotionInfoParts[1];
                   timeString = convertToDateTime(timeString);
-                  return ListTile(
-                      leading: HistoryText(
-                        text: emotion,
-                        textColor: ColorConstants.negativeEmotionsColor,
+                  return Padding(
+                    padding: context.padding.low,
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: WidgetSizeConstants.borderRadiusNormal,
                       ),
-                      trailing: HistoryText(
-                        text: timeString,
-                        textColor: ColorConstants.primaryWhite,
-                      ));
+                      child: ListTile(
+                          leading: HistoryText(
+                            text: emotion,
+                            textColor: ColorConstants.negativeEmotionsColor,
+                          ),
+                          trailing: HistoryText(
+                            text: timeString,
+                            textColor: ColorConstants.primaryWhite,
+                          )),
+                    ),
+                  );
                 } else {
                   return const CircularProgressIndicator();
                 }

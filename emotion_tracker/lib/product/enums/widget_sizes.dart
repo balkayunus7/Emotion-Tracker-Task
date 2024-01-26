@@ -11,7 +11,8 @@ enum WidgetSize {
   crossAxisSpacing(15),
   childAspectRatio(1.4),
   mainAxisSpacing(27),
-  crossAxisCount(3);
+  crossAxisCount(3),
+  loadingSize(50);
 
   final double value;
 

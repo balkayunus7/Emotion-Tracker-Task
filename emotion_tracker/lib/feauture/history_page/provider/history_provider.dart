@@ -8,8 +8,7 @@ class HistoryProvider extends StateNotifier<HistoryState> {
 
   static const String selectedEmotionsKey = 'selectedEmotions';
 
-  // Inside MainNotifier class
-
+  // Add emotion to history to local database with SharedPreferences
   Future<void> addEmotionHistory(String emotion, DateTime selectedTime) async {
     final prefs = await SharedPreferences.getInstance();
     final lastTimestamp = prefs.getInt('lastEmotionTimestamp') ?? 0;
@@ -32,6 +31,7 @@ class HistoryProvider extends StateNotifier<HistoryState> {
     }
   }
 
+  // Get selected emotions from local database with SharedPreferences
   Future<List<String>> getSelectedHistory() async {
     final prefs = await SharedPreferences.getInstance();
     List<String> historyList = prefs.getStringList(selectedEmotionsKey) ?? [];
@@ -39,6 +39,7 @@ class HistoryProvider extends StateNotifier<HistoryState> {
   }
 }
 
+// History State
 class HistoryState extends Equatable {
   const HistoryState({
     this.isSelected = false,

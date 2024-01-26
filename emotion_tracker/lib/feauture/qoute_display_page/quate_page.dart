@@ -2,6 +2,7 @@ import 'package:emotion_tracker/feauture/qoute_display_page/mixin/quote_mixin.da
 import 'package:emotion_tracker/feauture/qoute_display_page/provider/quate_provider.dart';
 import 'package:emotion_tracker/product/constants/color_constants.dart';
 import 'package:emotion_tracker/product/widgets/custom_app_bar.dart';
+import 'package:emotion_tracker/product/widgets/custom_loading.dart';
 import 'package:emotion_tracker/product/widgets/texts/title_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +21,8 @@ class QuatePage extends ConsumerStatefulWidget {
 }
 
 class _QuatePageState extends ConsumerState<QuatePage> with QuoteMixin {
+ 
+
   @override
   Widget build(BuildContext context) {
     final items = ref.watch(quoteProvider).items;
@@ -40,9 +43,12 @@ class _QuatePageState extends ConsumerState<QuatePage> with QuoteMixin {
           ),
         ),
         child: ListView.builder(
-          itemCount: items?.length ?? 0,
+          itemCount: 1,
           itemBuilder: (context, index) {
-            final quates = items![index].quotes[0];
+            if (items == null) {
+              return const Center(child: LoadingWidget());
+            }
+            final quates = items[index].quotes[index];
 
             return Padding(
               padding: context.padding.medium.copyWith(top: 140),

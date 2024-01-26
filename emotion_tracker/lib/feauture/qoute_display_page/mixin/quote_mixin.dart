@@ -6,7 +6,9 @@ mixin QuoteMixin on ConsumerState<QuatePage> {
   @override
   void initState() {
     super.initState();
-    ref.read(quoteProvider.notifier).getQuote(widget.emotion);
+    Future.delayed(const Duration(seconds: 1), () {
+      ref.read(quoteProvider.notifier).getQuote(widget.emotion);
+    });
   }
 
   @override

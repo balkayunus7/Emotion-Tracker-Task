@@ -2,7 +2,7 @@ class StringConstants {
   static const String appName = "EMOTION TRACKER";
   static const String mainTitle = "How do you feeling today?";
 
-  // Positive feelings 
+  // Positive feelings
   static const String alertness = "Alertness";
   static const String amusement = "Amusement";
   static const String awe = "Awe";
@@ -13,7 +13,7 @@ class StringConstants {
   static const String pride = "Pride";
   static const String satisfaction = "Satisfaction";
 
-  // Negative feelings 
+  // Negative feelings
   static const String anger = "Anger";
   static const String anxiety = "Anxiety";
   static const String contempt = "Contempt";
@@ -29,9 +29,15 @@ class StringConstants {
   static const String historyTitle = "History";
   static const String error = "error";
   static const String quotes = "Quotes";
-  static const String backgroundImage= 'assets/backgroundImage.png';
+  static const String backgroundImage = 'assets/backgroundImage.png';
 
-  static const String waitMessage = 'You can only add one emotion every 5 minutes';
+  static const String waitMessage =
+      'You can only add one emotion every 5 minutes';
+
+  // Notification
+  static const String notificationTitle = 'Emotion Tracker';
+  static const String notificationBody = 'How do you feeling today?';
+  static const String notificationChannelName = 'basic_channel';
+  static const String notificationIcon =
+      'resource://drawable/res_ic_notification';
 }
-
-
